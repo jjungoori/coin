@@ -1,0 +1,17 @@
+# External providers run only with --external. Names appear in saved evidence.
+[research]
+max_age_hours = 72
+limit = 20
+
+[[feeds]]
+name = "CoinDesk"
+url = "https://www.coindesk.com/arc/outboundfeeds/rss/"
+# Empty terms collect general market headlines. Nonempty terms use OR matching.
+terms = []
+
+[sentiment]
+enabled = true
+url = "https://api.alternative.me/fng/?limit=1"
+
+# Add other RSS/Atom sources as [[feeds]], including official announcements
+# when the publisher supplies a feed. Add coin aliases to terms as needed.

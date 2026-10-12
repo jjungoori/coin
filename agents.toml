@@ -1,0 +1,70 @@
+# All amounts are virtual KRW. No credentials or real-order API is used.
+[system]
+markets = ["KRW-BTC", "KRW-ETH"]
+unit = 5
+poll_seconds = 30
+external = false
+research_config = "research.toml"
+research_every_ticks = 12
+seed = 7
+fee_rate = "0.0004"
+min_notional = "5000"
+
+[population]
+initial_population = 3
+target_population = 3
+max_population = 6
+agent_cash = "100000"
+main_budget = "1000000"
+
+[survival]
+max_drawdown = 0.15
+min_equity_ratio = 0.75
+grace_ticks = 48
+evaluation_every = 24
+min_return = -0.02
+min_excess_return = -0.06
+inactivity_ticks = 96
+min_trades = 1
+
+[evolution]
+every_ticks = 24
+mutation_rate = 0.25
+max_births_per_tick = 2
+min_parent_age = 12
+
+[supervisor]
+every_ticks = 12
+spawn_every_ticks = 24
+environment_every_ticks = 48
+experiment_reserve = "1000000"
+sandbox_budget = "400000"
+max_environments = 3
+
+# Uses the execution user's existing `codex login` (ChatGPT); no API key.
+[ai]
+backend = "codex"
+command = "codex"
+# Empty uses the Codex CLI's default model.
+model = ""
+every_ticks = 12
+timeout_seconds = 180
+reasoning_effort = "medium"
+max_input_chars = 60000
+max_daily_calls = 24
+daily_token_budget = 300000
+reserve_tokens_per_call = 16000
+
+[workers]
+# Cycled for the initial population and new births. Supervisor can override per agent.
+initial_modes = ["rules", "rules", "hybrid"]
+model = "gpt-6-luna"
+reasoning_effort = "low"
+every_ticks = 6
+max_agents_per_call = 2
+timeout_seconds = 90
+max_input_chars = 6000
+max_daily_calls = 48
+daily_token_budget = 150000
+# Admission reserve; CLI usage is reconciled after the request, not a hard output cap.
+reserve_tokens_per_call = 12000
